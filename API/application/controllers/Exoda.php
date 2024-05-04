@@ -21,11 +21,18 @@ class Exoda extends CI_Controller
     }
 
     //get exoda by id
-    public function getExodaById($id) {
+    public function getExodaById($id = null) {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
             if ($this->Exoda_model->Validate('User')) {
-                $exodaData = $this->Exoda_model->getExodaById($id);
-                $this->Exoda_model->outputJSON($exodaData, 200);
+                if ($id === null) {
+                    $export['error'] = 'Error: No ID was provided';
+                    $export['status'] = 404;
+                    $export['message'] = 'You must provide an ID to get the data.';
+                    $this->Exoda_model->outputJSON($export, $export['status']);
+                }else {
+                    $exodaData = $this->Exoda_model->getExodaById($id);
+                    $this->Exoda_model->outputJSON($exodaData, 200);
+                }
             }
         }
     }
