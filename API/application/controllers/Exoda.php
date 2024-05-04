@@ -85,6 +85,4 @@ class Exoda extends CI_Controller
             }
         }
     }
-
-    
 }
