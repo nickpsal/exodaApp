@@ -3,15 +3,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Exoda extends CI_Controller
 {
-	public function __construct()
-	{
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
         $this->load->model('Exoda_model');
-	}
+    }
 
     //restfull API urls
     //get all exoda
-    public function getAllExoda() {
+    public function getAllExoda()
+    {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
             if ($this->Exoda_model->Validate('User')) {
                 $exodaData = $this->Exoda_model->getAllExoda();
@@ -21,7 +22,8 @@ class Exoda extends CI_Controller
     }
 
     //get exoda by id
-    public function getExodaById($id = null) {
+    public function getExodaById($id = null)
+    {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
             if ($this->Exoda_model->Validate('User')) {
                 if ($id === null) {
@@ -29,10 +31,38 @@ class Exoda extends CI_Controller
                     $export['status'] = 404;
                     $export['message'] = 'You must provide an ID to get the data.';
                     $this->Exoda_model->outputJSON($export, $export['status']);
-                }else {
+                } else {
                     $exodaData = $this->Exoda_model->getExodaById($id);
                     $this->Exoda_model->outputJSON($exodaData, 200);
                 }
+            }
+        }
+    }
+
+    //post exoda
+    public function postExoda()
+    {
+        $isChecked = true;
+        if ($this->input->server('REQUEST_METHOD') === 'POST') {
+            if ($this->Exoda_model->Validate('Admin')) {
+                // Retrieve POST data
+                $data = $this->input->post();
+                // Check if required data is provided
+                $requiredFields = array('Description', 'RenewType', 'ValidUntil', 'Price', 'Autopay');
+                foreach ($requiredFields as $field) {
+                    if (!isset($data[$field]) || $data[$field] === '') {
+                        $isChecked = false;
+                        $export['error'] = 'Error: Missing data';
+                        $export['status'] = 400; // Bad Request
+                        $export['message'] = 'Missing data. Please provide all required fields.';
+                        $this->Exoda_model->outputJSON($export, $export['status']);
+                    }
+                }
+                if ($isChecked) {
+                    // Insert data into the database
+                    $exodaData = $this->Exoda_model->postExoda($data);
+                    $this->Exoda_model->outputJSON($data, 200);
+                }   
             }
         }
     }

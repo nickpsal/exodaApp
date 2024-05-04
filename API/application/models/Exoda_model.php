@@ -96,4 +96,9 @@ class Exoda_model extends CI_Model
         $query['ID'] = $id;
         return $this->db->get_where("tblexoda", $query)->row_array();
     }
+
+    public function postExoda($data)
+    {
+        $this->db->insert("tblexoda", $data);
+    }
 }
