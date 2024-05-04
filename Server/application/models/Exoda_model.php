@@ -14,7 +14,6 @@ class Exoda_model extends CI_Model
             'userID' => $userID,
             'apiKey' => $key,
             'role' => 'user',
-            'date_created' => date('Y-m-d H:i:s')
         ];
 
         $this->db->insert('tblapikeys', $data);
