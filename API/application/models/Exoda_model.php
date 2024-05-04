@@ -101,4 +101,9 @@ class Exoda_model extends CI_Model
     {
         $this->db->insert("tblexoda", $data);
     }
+
+    public function deleteExoda($id)
+    {
+        $this->db->delete("tblexoda", ['ID' => $id]);
+    }
 }

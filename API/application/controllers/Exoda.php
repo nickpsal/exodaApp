@@ -66,4 +66,21 @@ class Exoda extends CI_Controller
             }
         }
     }
+
+    public function deleteExoda($id = null) {
+        if ($this->input->server('REQUEST_METHOD') === 'DELETE') {
+            if ($this->Exoda_model->Validate('Admin')) {
+                if ($id === null) {
+                    $export['error'] = 'Error: No ID was provided';
+                    $export['status'] = 404;
+                    $export['message'] = 'You must provide an ID to get the data.';
+                    $this->Exoda_model->outputJSON($export, $export['status']);
+                } else {
+                    $exodaData = $this->Exoda_model->deleteExoda($id);
+                    $export['message'] = 'Exoda deleted successfully';
+                    $this->Exoda_model->outputJSON($export, 200);
+                }
+            }
+        }
+    }
 }
