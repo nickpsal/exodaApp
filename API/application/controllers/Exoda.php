@@ -10,8 +10,6 @@ class Exoda extends CI_Controller
 	}
 
     //restfull API urls
-   
-
     //get all exoda
     public function getAllExoda() {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {

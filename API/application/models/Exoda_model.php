@@ -35,13 +35,35 @@ class Exoda_model extends CI_Model
         return null;
     }
 
+    //get clients IP
+    private function getClientIp()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            // IP from shared internet
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            // IP passed from proxy
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
+
+    private function isIpAllowed()
+    {
+        $allowedIps = array('127.0.0.1', '::1'); // Example IP addresses allowed to access
+        $clientIp = $this->getClientIp();
+        return in_array($clientIp, $allowedIps);
+    }
+
     public function Validate($required_role)
     {
         // Retrieve and validate API key from Authorization header
         $apikey = $this->get_api_key_from_header();
         $queryData = $this->db->get_where('tblapikeys', ['apiKey' => $apikey])->row();
         if (!empty($queryData)) {
-            if ($queryData->role === "Admin" || $queryData->role === $required_role) {
+            if (($queryData->role === "Admin" || $queryData->role === $required_role) ) {
                 return true;
             } else {
                 $export['error'] = 'Forbidden: Insufficient Permissions';
