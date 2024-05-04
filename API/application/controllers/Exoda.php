@@ -67,6 +67,18 @@ class Exoda extends CI_Controller
         }
     }
 
+    public function putExoda($id) {
+        if ($this->input->server('REQUEST_METHOD') == 'PUT') {
+            if ($this->Exoda_model->Validate('Admin')) {
+                // Retrieve POST data
+                $datarow = file_get_contents('php://input');
+                $data = json_decode($datarow, true);
+                $exodaData = $this->Exoda_model->updateExoda($id, $data[0]);
+                $this->Exoda_model->outputJSON($data, 200);
+            }
+        }
+    }
+
     //delete exoda
     public function deleteExoda($id = null)
     {

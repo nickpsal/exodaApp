@@ -106,4 +106,13 @@ class Exoda_model extends CI_Model
     {
         $this->db->delete("tblexoda", ['ID' => $id]);
     }
+
+    public function updateExoda($id, $data)
+    {
+        foreach ($data as $column => $replace) {
+            $this->db->set($column, $replace);
+        }
+        $this->db->where('ID', $id);
+        $this->db->update('tblexoda');
+    }
 }
