@@ -63,7 +63,7 @@ class Exoda_model extends CI_Model
         $apikey = $this->get_api_key_from_header();
         $queryData = $this->db->get_where('tblapikeys', ['apiKey' => $apikey])->row();
         if (!empty($queryData)) {
-            if (($queryData->role === "Admin" || $queryData->role === $required_role) ) {
+            if (($queryData->role === "Admin" || $queryData->role === $required_role) && $this->isIpAllowed()) {
                 return true;
             } else {
                 $export['error'] = 'Forbidden: Insufficient Permissions';

@@ -13,7 +13,7 @@ class Exoda extends CI_Controller
     //get all exoda
     public function getAllExoda() {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
-            if ($this->Exoda_model->Validate('Admin')) {
+            if ($this->Exoda_model->Validate('User')) {
                 $exodaData = $this->Exoda_model->getAllExoda();
                 $this->Exoda_model->outputJSON($exodaData, 200);
             }
@@ -23,7 +23,7 @@ class Exoda extends CI_Controller
     //get exoda by id
     public function getExodaById($id) {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
-            if ($this->Exoda_model->Validate('Admin')) {
+            if ($this->Exoda_model->Validate('User')) {
                 $exodaData = $this->Exoda_model->getExodaById($id);
                 $this->Exoda_model->outputJSON($exodaData, 200);
             }
