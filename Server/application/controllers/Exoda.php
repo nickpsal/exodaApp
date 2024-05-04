@@ -25,8 +25,10 @@ class Exoda extends CI_Controller
     //get exoda by id
     public function getExodaById($id) {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
-            $exodaData = $this->Exoda_model->getExodaById($id);
-            $this->Exoda_model->outputJSON($exodaData, 200);
+            if ($this->Exoda_model->Validate('Admin')) {
+                $exodaData = $this->Exoda_model->getExodaById($id);
+                $this->Exoda_model->outputJSON($exodaData, 200);
+            }
         }
     }
 }
