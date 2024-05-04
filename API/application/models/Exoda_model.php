@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Exoda_model extends CI_Model
 {
-
     public function generate_key($userID)
     {
         // Generate a random string and then hash it
