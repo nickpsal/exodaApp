@@ -62,12 +62,14 @@ class Exoda extends CI_Controller
                     // Insert data into the database
                     $exodaData = $this->Exoda_model->postExoda($data);
                     $this->Exoda_model->outputJSON($data, 200);
-                }   
+                }
             }
         }
     }
 
-    public function deleteExoda($id = null) {
+    //delete exoda
+    public function deleteExoda($id = null)
+    {
         if ($this->input->server('REQUEST_METHOD') === 'DELETE') {
             if ($this->Exoda_model->Validate('Admin')) {
                 if ($id === null) {
@@ -83,4 +85,6 @@ class Exoda extends CI_Controller
             }
         }
     }
+
+    
 }
