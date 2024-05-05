@@ -18,6 +18,11 @@ class Exoda extends CI_Controller
                 $exodaData = $this->Exoda_model->getAllExoda();
                 $this->Exoda_model->outputJSON($exodaData, 200);
             }
+        }else {
+            $export['error'] = 'Error: Incorrect Method';
+            $export['status'] = 400; // Bad Request
+            $export['message'] = 'This method is not allowed on this URL.';
+            $this->Exoda_model->outputJSON($export, $export['status']);
         }
     }
 
@@ -35,6 +40,11 @@ class Exoda extends CI_Controller
                     $exodaData = $this->Exoda_model->getExodaById($id);
                     $this->Exoda_model->outputJSON($exodaData, 200);
                 }
+            }else {
+                $export['error'] = 'Error: Incorrect Method';
+                $export['status'] = 400; // Bad Request
+                $export['message'] = 'This method is not allowed on this URL.';
+                $this->Exoda_model->outputJSON($export, $export['status']);
             }
         }
     }
@@ -64,10 +74,17 @@ class Exoda extends CI_Controller
                     $this->Exoda_model->outputJSON($data, 200);
                 }
             }
+        }else {
+            $export['error'] = 'Error: Incorrect Method';
+            $export['status'] = 400; // Bad Request
+            $export['message'] = 'This method is not allowed on this URL.';
+            $this->Exoda_model->outputJSON($export, $export['status']);
         }
     }
 
-    public function putExoda($id) {
+    //update exoda
+    public function putExoda($id)
+    {
         if ($this->input->server('REQUEST_METHOD') == 'PUT') {
             if ($this->Exoda_model->Validate('Admin')) {
                 // Retrieve POST data
@@ -76,6 +93,11 @@ class Exoda extends CI_Controller
                 $exodaData = $this->Exoda_model->updateExoda($id, $data[0]);
                 $this->Exoda_model->outputJSON($data, 200);
             }
+        }else {
+            $export['error'] = 'Error: Incorrect Method';
+            $export['status'] = 400; // Bad Request
+            $export['message'] = 'This method is not allowed on this URL.';
+            $this->Exoda_model->outputJSON($export, $export['status']);
         }
     }
 
@@ -94,6 +116,27 @@ class Exoda extends CI_Controller
                     $export['message'] = 'Exoda deleted successfully';
                     $this->Exoda_model->outputJSON($export, 200);
                 }
+            }
+        }else {
+            $export['error'] = 'Error: Incorrect Method';
+            $export['status'] = 400; // Bad Request
+            $export['message'] = 'This method is not allowed on this URL.';
+            $this->Exoda_model->outputJSON($export, $export['status']);
+        }
+    }
+
+    //sum of month exoda
+    public function exodaSum()
+    {
+        if ($this->input->server('REQUEST_METHOD') === 'GET') {
+            if ($this->Exoda_model->Validate('User')) {
+                $sum = $this->Exoda_model->getExodaSum();
+                $this->Exoda_model->outputJSON($sum, 200);
+            }else {
+                $export['error'] = 'Error: No ID was provided';
+                $export['status'] = 404;
+                $export['message'] = 'You must provide an ID to get the data.';
+                $this->Exoda_model->outputJSON($export, $export['status']);
             }
         }
     }
