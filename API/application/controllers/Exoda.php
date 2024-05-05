@@ -126,7 +126,7 @@ class Exoda extends CI_Controller
     }
 
     //sum of month exoda
-    public function getexodaSum()
+    public function getExodaSum()
     {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
             if ($this->Exoda_model->Validate('User')) {
