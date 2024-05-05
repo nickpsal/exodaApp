@@ -14,7 +14,7 @@ class Exoda extends CI_Controller
     public function getAllExoda()
     {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
-            if ($this->Exoda_model->Validate('User')) {
+            if ($this->Exoda_model->Validate('Admin')) {
                 $exodaData = $this->Exoda_model->getAllExoda();
                 $this->Exoda_model->outputJSON($exodaData, 200);
             }
@@ -30,7 +30,7 @@ class Exoda extends CI_Controller
     public function getExodaById($id = null)
     {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
-            if ($this->Exoda_model->Validate('User')) {
+            if ($this->Exoda_model->Validate('Admin')) {
                 if ($id === null) {
                     $export['error'] = 'Error: No ID was provided';
                     $export['status'] = 404;
@@ -126,18 +126,19 @@ class Exoda extends CI_Controller
     }
 
     //sum of month exoda
-    public function exodaSum()
+    public function getexodaSum()
     {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
             if ($this->Exoda_model->Validate('User')) {
                 $sum = $this->Exoda_model->getExodaSum();
-                $this->Exoda_model->outputJSON($sum, 200);
-            }else {
-                $export['error'] = 'Error: No ID was provided';
-                $export['status'] = 404;
-                $export['message'] = 'You must provide an ID to get the data.';
-                $this->Exoda_model->outputJSON($export, $export['status']);
+                $msg = "Month expenses are {$sum} Euro per Month";
+                $this->Exoda_model->outputJSON($msg, 200);
             }
+        }else {
+            $export['error'] = 'Error: Incorrect Method';
+            $export['status'] = 400; // Bad Request
+            $export['message'] = 'This method is not allowed on this URL.';
+            $this->Exoda_model->outputJSON($export, $export['status']);
         }
     }
 }
