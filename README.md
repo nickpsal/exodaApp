@@ -1,6 +1,6 @@
 # exodaApp 1.0
 Insert and organize month and Year expenses.
-The User inserts all the expenses abd declares if it is by month or Year.
+The User inserts all the expenses and declares if it is by month or by Year.
 It has 2 folder the Server folder and Client folder.
 # Server Folder
 The server works as RestFull API and codeIgniter 3 with Controller End points and the model.
