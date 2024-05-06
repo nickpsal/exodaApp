@@ -30,17 +30,18 @@ class Exoda_model extends CI_Model
         $authorization_header = $this->input->get_request_header('Authorization', TRUE);
         // Check if the Authorization header exists
         if ($authorization_header) {
-            // Split the header value to extract the authentication type and API key
+            // Split the header value to extract the authentication type and token
             $parts = explode(' ', $authorization_header);
-            // Check if the header is in the format "Basic <base64_encoded_api_key>"
-            if (!empty($parts[1]) && $parts[0] === 'Basic'){
-                // Use the API key as needed
+            // Check if the header is in the format "Bearer <token>"
+            if (!empty($parts[1]) && $parts[0] === 'Bearer') {
+                // Use the token as needed
                 return $parts[1];
             } else {
                 return null;
             }
         }
     }
+
 
 
     //get clients IP
