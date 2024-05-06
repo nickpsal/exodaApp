@@ -40,12 +40,12 @@ class Exoda extends CI_Controller
                     $exodaData = $this->Exoda_model->getExodaById($id);
                     $this->Exoda_model->outputJSON($exodaData, 200);
                 }
-            }else {
-                $export['error'] = 'Error: Incorrect Method';
-                $export['status'] = 400; // Bad Request
-                $export['message'] = 'This method is not allowed on this URL.';
-                $this->Exoda_model->outputJSON($export, $export['status']);
             }
+        }else {
+            $export['error'] = 'Error: Incorrect Method';
+            $export['status'] = 400; // Bad Request
+            $export['message'] = 'This method is not allowed on this URL.';
+            $this->Exoda_model->outputJSON($export, $export['status']);
         }
     }
 

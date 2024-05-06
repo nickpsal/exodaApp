@@ -26,13 +26,22 @@ class Exoda_model extends CI_Model
 
     public function get_api_key_from_header()
     {
-        $header = $this->input->get_request_header('Authorization', TRUE);
-        if (!empty($header) && strpos($header, 'Basic ') === 0) {
-            $token = substr($header, 6); // Remove 'Basic ' from the beginning
-            return $token;
+        // Get the Authorization header
+        $authorization_header = $this->input->get_request_header('Authorization', TRUE);
+        // Check if the Authorization header exists
+        if ($authorization_header) {
+            // Split the header value to extract the authentication type and API key
+            $parts = explode(' ', $authorization_header);
+            // Check if the header is in the format "Basic <base64_encoded_api_key>"
+            if (!empty($parts[1]) && $parts[0] === 'Basic'){
+                // Use the API key as needed
+                return $parts[1];
+            } else {
+                return null;
+            }
         }
-        return null;
     }
+
 
     //get clients IP
     private function getClientIp()
@@ -62,7 +71,7 @@ class Exoda_model extends CI_Model
         $apikey = $this->get_api_key_from_header();
         $queryData = $this->db->get_where('tblapikeys', ['apiKey' => $apikey])->row();
         if (!empty($queryData)) {
-            if (($queryData->role === "Admin" || $queryData->role === $required_role) && $this->isIpAllowed()) {
+            if (($queryData->role === "Admin" || $queryData->role === $required_role)) {
                 return true;
             } else {
                 $export['error'] = 'Forbidden: Insufficient Permissions';
@@ -116,7 +125,8 @@ class Exoda_model extends CI_Model
         $this->db->update('tblexoda');
     }
 
-    public function getExodaSum() {
+    public function getExodaSum()
+    {
         $this->db->select_sum('Price');
         $this->db->where('RenewType', 'Month');
         return $this->db->get('tblexoda')->row()->Price;
