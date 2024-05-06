@@ -125,10 +125,17 @@ class Exoda_model extends CI_Model
         $this->db->update('tblexoda');
     }
 
-    public function getExodaSum()
+    public function getExodaSumbyMonth()
     {
         $this->db->select_sum('Price');
         $this->db->where('RenewType', 'Month');
+        return $this->db->get('tblexoda')->row()->Price;
+    }
+
+    public function getExodaSumbyYear()
+    {
+        $this->db->select_sum('Price');
+        $this->db->where('RenewType', 'Year');
         return $this->db->get('tblexoda')->row()->Price;
     }
 }

@@ -126,12 +126,29 @@ class Exoda extends CI_Controller
     }
 
     //sum of month exoda
-    public function getExodaSum()
+    public function getExodaSumByMonth()
     {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
             if ($this->Exoda_model->Validate('User')) {
-                $sum = $this->Exoda_model->getExodaSum();
+                $sum = $this->Exoda_model->getExodaSumbyMonth();
                 $msg = "Month expenses are {$sum} Euro per Month";
+                $this->Exoda_model->outputJSON($msg, 200);
+            }
+        }else {
+            $export['error'] = 'Error: Incorrect Method';
+            $export['status'] = 400; // Bad Request
+            $export['message'] = 'This method is not allowed on this URL.';
+            $this->Exoda_model->outputJSON($export, $export['status']);
+        }
+    }
+
+    //sum of Year exoda
+    public function getExodaSumByYear()
+    {
+        if ($this->input->server('REQUEST_METHOD') === 'GET') {
+            if ($this->Exoda_model->Validate('User')) {
+                $sum = $this->Exoda_model->getExodaSumbyYear();
+                $msg = "Year expenses are {$sum} Euro per Year";
                 $this->Exoda_model->outputJSON($msg, 200);
             }
         }else {
