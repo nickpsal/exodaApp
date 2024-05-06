@@ -42,8 +42,6 @@ class Exoda_model extends CI_Model
         }
     }
 
-
-
     //get clients IP
     private function getClientIp()
     {
