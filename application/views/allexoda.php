@@ -134,7 +134,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
 </div>
 
-
 <!-- Delete Exoda Modal -->
 <!-- Modal HTML -->
 <div id="deleteConfirmationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
@@ -153,6 +152,5 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </div>
     </div>
 </div>
-
 
 <?php $this->load->view('includes/footer'); ?>
