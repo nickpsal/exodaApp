@@ -1,52 +1,54 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Fetch data from controller
     $.ajax({
         url: "Exoda/getAllExoda",
         type: "GET",
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             // Populate DataTable with fetched data
             $('#myTable').DataTable({
                 data: data,
                 columns: [{
-                        data: 'ID'
-                    },
-                    {
-                        data: 'Description'
-                    },
-                    {
-                        data: 'RenewType'
-                    },
-                    {
-                        data: 'ValidUntil'
-                    },
-                    {
-                        data: 'Price'
-                    },
-                    {
-                        data: 'Autopay',
-                        render: function(data) {
-                            return data === '0' ? 'Yes' : 'No';
-                        }
-                    },
-                    {
-                        data: 'dateCreated'
-                    },
-                    {
-                        data: null,
-                        render: function(data, type, row) {
-                            return '<button class="btn btn-primary btn-sm btn-edit" onclick="openEditModal(' + row.ID + ')">Edit</button>' +
-                                   '<button class="btn btn-danger btn-sm btn-delete" onclick="confirmDelete(' + row.ID + ')">Delete</button>';
-                        }
+                    data: 'ID'
+                },
+                {
+                    data: 'Description'
+                },
+                {
+                    data: 'RenewType'
+                },
+                {
+                    data: 'ValidUntil'
+                },
+                {
+                    data: 'Price'
+                },
+                {
+                    data: 'Autopay',
+                    render: function (data) {
+                        return data === '0' ? 'Yes' : 'No';
                     }
+                },
+                {
+                    data: 'dateCreated'
+                },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        return '<button class="btn btn-primary btn-sm btn-edit" onclick="openEditModal(' + row.ID + ')">Edit</button>' +
+                            '<button class="btn btn-danger btn-sm btn-delete" onclick="confirmDelete(' + row.ID + ')">Delete</button>';
+                    }
+                }
                 ]
             });
         }
     });
 });
 
+
+
 //function to open the edit Exoda modal
-window.openEditModal = function(ID) {
+window.openEditModal = function (ID) {
     // Show edit modal
     $('#UpdateExodaModal').modal('show');
 
@@ -57,7 +59,7 @@ window.openEditModal = function(ID) {
         data: {
             ID: ID
         },
-        success: function(data) {
+        success: function (data) {
             // Populate the edit modal with fetched data
             document.getElementById("UpdateExodaModalLabel").innerText = 'Edit ' + data['Description'];
             $('#ID').val(data.ID);
@@ -78,19 +80,19 @@ window.openEditModal = function(ID) {
 
 
 // Function to confirm deletion
-window.confirmDelete = function(ID) {
+window.confirmDelete = function (ID) {
     // Show confirmation modal
     $('#deleteConfirmationModal').modal('show');
 
     // Handle confirmation
-    $('#confirmDeleteButton').click(function() {
+    $('#confirmDeleteButton').click(function () {
         $.ajax({
             url: "Exoda/deleteExoda",
             type: "POST",
             data: {
                 ID: ID
             },
-            success: function() {
+            success: function () {
                 $('#deleteConfirmationModal').modal('hide');
                 // Reload the page
                 location.reload();
@@ -99,7 +101,31 @@ window.confirmDelete = function(ID) {
     });
 
     //Optionally handle cancellation
-    $('#cancelDeleteButton').click(function() {
+    $('#cancelDeleteButton').click(function () {
         $('#deleteConfirmationModal').modal('hide');
     });
 };
+
+$('#okButton').click(function () {
+    $('#generalModel').modal('hide');
+});
+
+function updateModalTitle(action) {
+    if (action === 'Month') {
+        $.ajax({
+            url: "Exoda/getExodaSumByMonth",
+            type: "POST",
+            success: function (message) {
+                document.getElementById("message").innerText = message;       
+            }
+        });
+    }else {
+        $.ajax({
+            url: "Exoda/getExodaSumByYear",
+            type: "POST",
+            success: function (message) {
+                document.getElementById("message").innerText = message;       
+            }
+        });
+    }
+}

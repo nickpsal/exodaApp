@@ -19,6 +19,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertExodaModal">
 								Insert New
 							</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generalModel" onclick="updateModalTitle('Month')">Month Exoda</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generalModel" onclick="updateModalTitle('Year')">Year Exoda</button>
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
@@ -130,6 +132,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- General Modal -->
+<!-- Modal HTML -->
+<div id="generalModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="generalModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="general-header">
+                <h4 class="message" id="message">Confirm Deletion</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="okButton">OK</button>
+            </div>
         </div>
     </div>
 </div>
