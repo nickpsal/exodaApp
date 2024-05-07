@@ -9,21 +9,13 @@ class Exoda extends CI_Controller
         $this->load->model('Exoda_model');
     }
 
-    //restfull API urls
     //get all exoda
     public function getAllExoda()
     {
-        if ($this->input->server('REQUEST_METHOD') === 'GET') {
-            if ($this->Exoda_model->Validate('Admin')) {
-                $exodaData = $this->Exoda_model->getAllExoda();
-                $this->Exoda_model->outputJSON($exodaData, 200);
-            }
-        }else {
-            $export['error'] = 'Error: Incorrect Method';
-            $export['status'] = 400; // Bad Request
-            $export['message'] = 'This method is not allowed on this URL.';
-            $this->Exoda_model->outputJSON($export, $export['status']);
-        }
+        $exodaData = $this->Exoda_model->getAllExoda();
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($exodaData));
     }
 
     //get exoda by id
