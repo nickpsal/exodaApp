@@ -35,8 +35,8 @@ $(document).ready(function() {
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return '<a href="exoda/edit/' + row.ID + '" class="btn btn-primary btn-sm">Edit</a>' +
-                                   '<a href="exoda/delete/' + row.ID + '" class="btn btn-danger btn-sm">Delete</a>';
+                            return '<button class="btn btn-primary btn-sm btn-edit" onclick="openEditModal(' + row.ID + ')">Edit</button>' +
+                                   '<button class="btn btn-danger btn-sm btn-delete" onclick="confirmDelete(' + row.ID + ')">Delete</button>';
                         }
                     }
                 ]
@@ -44,3 +44,62 @@ $(document).ready(function() {
         }
     });
 });
+
+//function to open the edit Exoda modal
+window.openEditModal = function(ID) {
+    // Show edit modal
+    $('#UpdateExodaModal').modal('show');
+
+    // Fetch data from controller
+    $.ajax({
+        url: "Exoda/putExoda",
+        type: "GET",
+        data: {
+            ID: ID
+        },
+        success: function(data) {
+            // Populate the edit modal with fetched data
+            //$('#editID').val(data.ID);
+            console.log(data['Description']);
+            $('#updateDescription').val(data['Description']);
+            $('#updateRenewType').val(data['RenewType']);
+            $('#updateValidUntil').val(data['ValidUntil']);
+            $('#updatePrice').val(data['Price']);
+            var AutoPay = data['Autopay'];
+            console.log(AutoPay);
+            if (AutoPay === '0') {
+                $('#updateAutoPay').val('True');
+            } else {
+                $('#updateAutoPay').val('False');
+            }
+        }
+    });
+}
+
+
+// Function to confirm deletion
+window.confirmDelete = function(ID) {
+    // Show confirmation modal
+    $('#deleteConfirmationModal').modal('show');
+
+    // Handle confirmation
+    $('#confirmDeleteButton').click(function() {
+        $.ajax({
+            url: "Exoda/deleteExoda",
+            type: "POST",
+            data: {
+                ID: ID
+            },
+            success: function() {
+                $('#deleteConfirmationModal').modal('hide');
+                // Reload the page
+                location.reload();
+            }
+        });
+    });
+
+    //Optionally handle cancellation
+    $('#cancelDeleteButton').click(function() {
+        $('#deleteConfirmationModal').modal('hide');
+    });
+};
