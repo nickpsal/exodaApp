@@ -45,7 +45,11 @@ $(document).ready(function () {
     });
 });
 
-
+// Function to open the insert Exoda modal
+window.openInsertModal = function () {
+    // Show insert modal
+    $('#insertExodaModal').modal('show');
+}
 
 //function to open the edit Exoda modal
 window.openEditModal = function (ID) {
@@ -78,6 +82,17 @@ window.openEditModal = function (ID) {
     });
 }
 
+//Sum Modal
+window.openSumModal = function () {
+    $('#generalModal').modal('show');
+    CustomModalText();
+
+    //Sum Modal close
+    $('#closeCustom').click(function () {
+        $('#generalModal').modal('hide');
+    });
+};
+
 
 // Function to confirm deletion
 window.confirmDelete = function (ID) {
@@ -106,16 +121,12 @@ window.confirmDelete = function (ID) {
     });
 };
 
-$('#okButton').click(function () {
-    $('#generalModel').modal('hide');
-});
-
-function updateModalText() {
+function CustomModalText() {
     $.ajax({
         url: "Exoda/getExodaSum",
         type: "POST",
         success: function (message) {
-            document.getElementById("message").innerText = message;       
+            document.getElementById("generalModalLabel").innerText = message;
         }
     });
 }

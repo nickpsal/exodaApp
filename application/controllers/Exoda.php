@@ -15,6 +15,7 @@ class Exoda extends CI_Controller
     {
         $data['title'] = 'Exoda V 1.0';
         $this->load->view('allexoda', $data);
+        $this->load->view('modals');
     }
 
     //Ajax Reuqests
