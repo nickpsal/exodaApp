@@ -72,20 +72,13 @@ class Exoda extends CI_Controller
     }
 
     //sum of month exoda
-    public function getExodaSumByMonth()
+    public function getExodaSum()
     {
-        $sum = $this->Exoda_model->getExodaSumbyMonth();
-        $msg = "Month expenses are {$sum} Euro per Month";
-        $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode($msg));
-    }
-
-    //sum of Year exoda
-    public function getExodaSumByYear()
-    {
-        $sum = $this->Exoda_model->getExodaSumbyYear();
-        $msg = "Year expenses are {$sum} Euro per Year";
+        $sum1 = $this->Exoda_model->getExodaSumbyMonth();
+        $sum2= $this->Exoda_model->getExodaSumbyYear();
+        $msg1 = "Month expenses are {$sum1} Euro per Month.";
+        $msg2 = "Year expenses are {$sum2} Euro per Year.";
+        $msg = $msg1 . "  " . $msg2;
         $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode($msg));

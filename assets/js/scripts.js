@@ -110,22 +110,12 @@ $('#okButton').click(function () {
     $('#generalModel').modal('hide');
 });
 
-function updateModalTitle(action) {
-    if (action === 'Month') {
-        $.ajax({
-            url: "Exoda/getExodaSumByMonth",
-            type: "POST",
-            success: function (message) {
-                document.getElementById("message").innerText = message;       
-            }
-        });
-    }else {
-        $.ajax({
-            url: "Exoda/getExodaSumByYear",
-            type: "POST",
-            success: function (message) {
-                document.getElementById("message").innerText = message;       
-            }
-        });
-    }
+function updateModalText() {
+    $.ajax({
+        url: "Exoda/getExodaSum",
+        type: "POST",
+        success: function (message) {
+            document.getElementById("message").innerText = message;       
+        }
+    });
 }

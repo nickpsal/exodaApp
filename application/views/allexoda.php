@@ -19,8 +19,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertExodaModal">
 								Insert New
 							</button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generalModel" onclick="updateModalTitle('Month')">Month Exoda</button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generalModel" onclick="updateModalTitle('Year')">Year Exoda</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generalModel" onclick="updateModalText()">Sum of all Exoda</button>
                             <table id="myTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
