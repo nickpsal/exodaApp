@@ -141,8 +141,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <div id="generalModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="generalModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="general-header">
-                <h4 class="message" id="message">Confirm Deletion</h4>
+            <div class="message" id="message">
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="okButton">OK</button>

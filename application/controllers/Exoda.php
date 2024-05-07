@@ -13,7 +13,7 @@ class Exoda extends CI_Controller
     //index view
     public function index()
     {
-        $data['title'] = 'All Exoda';
+        $data['title'] = 'Exoda V 1.0';
         $this->load->view('allexoda', $data);
     }
 
