@@ -36,7 +36,7 @@ class Exoda extends CI_Controller
             //post data
             $postdata = $this->input->post();
             $this->Exoda_model->postExoda($postdata);
-            redirect("base_url('exoda')");
+            redirect(base_url('exoda'));
         }
     }
 
