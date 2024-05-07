@@ -59,6 +59,7 @@ window.openEditModal = function(ID) {
         },
         success: function(data) {
             // Populate the edit modal with fetched data
+            document.getElementById("UpdateExodaModalLabel").innerText = 'Edit ' + data['Description'];
             $('#ID').val(data.ID);
             $('#updateDescription').val(data['Description']);
             $('#updateRenewType').val(data['RenewType']);

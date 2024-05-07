@@ -46,7 +46,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="insertExodaModalLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="insertExodaModalLabel">Insert new Exodo</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="exodaForm" method="post" action="<?=base_url('exoda/postExoda')?>">
@@ -92,7 +92,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="UpdateExodaModalLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="UpdateExodaModalLabel">Update</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="editExodaForm" method="post" action="<?=base_url('exoda/putExoda')?>">
