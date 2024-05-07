@@ -36,7 +36,7 @@ class Exoda extends CI_Controller
             //post data
             $postdata = $this->input->post();
             $this->Exoda_model->postExoda($postdata);
-            redirect("<?=base_url('exoda')?>");
+            redirect("base_url('exoda')");
         }
     }
 
@@ -53,7 +53,14 @@ class Exoda extends CI_Controller
     {
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
             //update data
-            $exodaData = $this->input->post();
+            $postData = $this->input->post();
+            $dataDB['Description'] = $postData['updateDescription'];
+            $dataDB['RenewType'] = $postData['updateRenewType'];
+            $dataDB['ValidUntil'] = $postData['updateValidUntil'];
+            $dataDB['Price'] = $postData['updatePrice'];
+            $dataDB['Autopay'] = $postData['updateAutopay'];
+            $this->Exoda_model->updateExoda($postData['ID'], $dataDB);
+            redirect(base_url('exoda'));
         }else {
             //dend data to modal for update
             $id = $this->input->get('ID');

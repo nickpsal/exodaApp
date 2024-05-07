@@ -97,6 +97,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </div>
             <form id="editExodaForm" method="post" action="<?=base_url('exoda/putExoda')?>">
                 <div class="modal-body">
+                    <input type="text" class="form-control" id="ID" name="ID" hidden>
                     <div class="mb-3">
                         <label for="updateDescription" class="form-label">Description</label>
                         <input type="text" class="form-control" id="updateDescription" name="updateDescription" required>
@@ -118,7 +119,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     </div>
                     <div class="mb-3">
                         <label for="updateAutoPay" class="form-label">Autopay</label>
-                        <select class="form-control" id="updateAutoPay" name="updateAutoPay" required>
+                        <select class="form-control" id="updateAutoPay" name="updateAutopay" required>
                             <option value="True">True</option>
                             <option value="False">False</option>
                         </select>

@@ -59,8 +59,7 @@ window.openEditModal = function(ID) {
         },
         success: function(data) {
             // Populate the edit modal with fetched data
-            //$('#editID').val(data.ID);
-            console.log(data['Description']);
+            $('#ID').val(data.ID);
             $('#updateDescription').val(data['Description']);
             $('#updateRenewType').val(data['RenewType']);
             $('#updateValidUntil').val(data['ValidUntil']);
