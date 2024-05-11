@@ -127,6 +127,38 @@ window.chooseMonth = function () {
     });
 };
 
+// Function to confirm deletion
+window.confirmDelete = function (ID) {
+    // Show confirmation modal
+    $('#deleteConfirmationModal').modal('show');
+
+    // Handle confirmation
+    $('#confirmDeleteButton').click(function () {
+        $.ajax({
+            url: "Exoda/deleteExoda",
+            type: "POST",
+            data: {
+                ID: ID
+            },
+            success: function () {
+                $('#deleteConfirmationModal').modal('hide');
+                // Reload the page
+                location.reload();
+            }
+        });
+    });
+
+    //Optionally handle cancellation
+    $('#cancelDeleteButton').click(function () {
+        $('#deleteConfirmationModal').modal('hide');
+    });
+};
+
+$('#showCurrentMonth').click(function () {
+    currentMonth = new Date().getMonth();
+    showExpensesByMonth(currentMonth);
+});
+
 function showExpensesByMonth(selectedMonth) {
     selectedMonth = parseInt(selectedMonth);
 
@@ -155,11 +187,6 @@ function showExpensesByMonth(selectedMonth) {
     $('#cMonth').text("Current Month : " + monthNames[selectedMonth - 1]);
 }
 
-$('#showCurrentMonth').click(function () {
-    currentMonth = new Date().getMonth();
-    showExpensesByMonth(currentMonth);
-});
-
 function updateMonthSum(data) {
     let totalSum = 0;
 
@@ -171,30 +198,3 @@ function updateMonthSum(data) {
     // Update footer with total sum
     $('#monthSum').text("Total Expenses of the Month is " + totalSum.toFixed(2) + " Euros"); // Assuming two decimal places
 }
-
-// Function to confirm deletion
-window.confirmDelete = function (ID) {
-    // Show confirmation modal
-    $('#deleteConfirmationModal').modal('show');
-
-    // Handle confirmation
-    $('#confirmDeleteButton').click(function () {
-        $.ajax({
-            url: "Exoda/deleteExoda",
-            type: "POST",
-            data: {
-                ID: ID
-            },
-            success: function () {
-                $('#deleteConfirmationModal').modal('hide');
-                // Reload the page
-                location.reload();
-            }
-        });
-    });
-
-    //Optionally handle cancellation
-    $('#cancelDeleteButton').click(function () {
-        $('#deleteConfirmationModal').modal('hide');
-    });
-};
