@@ -23,18 +23,7 @@ $(document).ready(function () {
                 {
                     data: 'ExodoMonth',
                     render: function (data) {
-                        if (data === '1') return 'January';
-                        if (data === '2') return 'February';
-                        if (data === '3') return 'March';
-                        if (data === '4') return 'April';
-                        if (data === '5') return 'May';
-                        if (data === '6') return 'June';
-                        if (data === '7') return 'July';
-                        if (data === '8') return 'August';
-                        if (data === '9') return 'September';
-                        if (data === '10') return 'October';
-                        if (data === '11') return 'November';
-                        if (data === '12') return 'December';
+                        return new Date(2000, data - 1).toLocaleString('EN', { month: 'long' });
                     }
                 },
                 {
