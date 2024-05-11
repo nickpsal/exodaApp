@@ -1,6 +1,5 @@
 $(document).ready(function () {
     // Fetch data from controller
-    let totalSum = 0;
     $.ajax({
         url: "Exoda/getCurrentMonthExoda",
         type: "GET",
@@ -63,13 +62,14 @@ $(document).ready(function () {
                 ]
             });
 
+            let totalSum = 0;
             // Loop through data to calculate total sum
             data.forEach(function(item) {
                 totalSum += parseFloat(item.Price);
             });
 
             // Display total sum
-            $('#monthSum').text("Total Sum : " + totalSum.toFixed(2)); // Assuming two decimal places
+            $('#monthSum').text("Total Expenses of the Month is " + totalSum.toFixed(2) + " Euros"); // Assuming two decimal places
         }
     });
     let currentMonth = new Date().getMonth();
@@ -141,7 +141,7 @@ function showExpensesByMonth(selectedMonth) {
             $('#myTable').DataTable().clear().rows.add(data).draw();
             
             // Update footer sum after redrawing table
-            updateFooterSum(data);
+            updateMonthSum(data);
         }
         // Footer callback to calculate sum
     });
@@ -159,17 +159,16 @@ $('#showCurrentMonth').click(function () {
     showExpensesByMonth(currentMonth);
 });
 
-function updateFooterSum(data) {
+function updateMonthSum(data) {
     let totalSum = 0;
 
     // Calculate total sum
     data.forEach(function(item) {
-        console.log(item.Price);
         totalSum += parseFloat(item.Price);
     });
 
     // Update footer with total sum
-    $('#monthSum').text("Total Sum : " + totalSum.toFixed(2)); // Assuming two decimal places
+    $('#monthSum').text("Total Expenses of the Month is " + totalSum.toFixed(2) + " Euros"); // Assuming two decimal places
 }
 
 // Function to confirm deletion
