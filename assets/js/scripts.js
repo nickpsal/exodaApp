@@ -104,6 +104,7 @@ window.openEditModal = function (ID) {
             $('#ID').val(data.ID);
             $('#updateDescription').val(data['Description']);
             $('#updatePrice').val(data['Price']);
+            $('#updateExodoMonth').val(data['ExodoMonth']);
             $('#updateRepeated').val(data['Repeated']);
             $('#updateAutoRenew').val(data['AutoRenew']);
             var AutoPay = data['Autopay'];
