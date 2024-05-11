@@ -1,12 +1,16 @@
 $(document).ready(function () {
     // Fetch data from controller
+    let totalSum = 0;
     $.ajax({
-        url: "Exoda/getAllExoda",
+        url: "Exoda/getCurrentMonthExoda",
         type: "GET",
         dataType: "json",
         success: function (data) {
             // Populate DataTable with fetched data
             $('#myTable').DataTable({
+                "language": {
+                    "emptyTable": "No Expenses found for this Month"
+                },
                 data: data,
                 columns: [{
                     data: 'ID'
@@ -15,22 +19,39 @@ $(document).ready(function () {
                     data: 'Description'
                 },
                 {
-                    data: 'RenewType'
-                },
-                {
-                    data: 'ValidUntil'
-                },
-                {
                     data: 'Price'
                 },
                 {
-                    data: 'Autopay',
+                    data: 'ExodoMonth',
                     render: function (data) {
-                        return data === '0' ? 'Yes' : 'No';
+                        if (data === '1') return 'January';
+                        if (data === '2') return 'February';
+                        if (data === '3') return 'March';
+                        if (data === '4') return 'April';
+                        if (data === '5') return 'May';
+                        if (data === '6') return 'June';
+                        if (data === '7') return 'July';
+                        if (data === '8') return 'August';
+                        if (data === '9') return 'September';
+                        if (data === '10') return 'October';
+                        if (data === '11') return 'November';
+                        if (data === '12') return 'December';
                     }
                 },
                 {
                     data: 'dateCreated'
+                },
+                {
+                    data: 'Repeated',
+                    render: function (data) {
+                        return data === '0' ? 'True' : 'False';
+                    }
+                },
+                {
+                    data: 'AutoRenew',
+                    render: function (data) {
+                        return data === '0' ? 'True' : 'False';
+                    }
                 },
                 {
                     data: null,
@@ -38,11 +59,25 @@ $(document).ready(function () {
                         return '<button class="btn btn-primary btn-sm btn-edit" onclick="openEditModal(' + row.ID + ')">Edit</button>' +
                             '<button class="btn btn-danger btn-sm btn-delete" onclick="confirmDelete(' + row.ID + ')">Delete</button>';
                     }
-                }
+                },
                 ]
             });
+
+            // Loop through data to calculate total sum
+            data.forEach(function(item) {
+                totalSum += parseFloat(item.Price);
+            });
+
+            // Display total sum
+            $('#monthSum').text("Total Sum : " + totalSum.toFixed(2)); // Assuming two decimal places
         }
     });
+    let currentMonth = new Date().getMonth();
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    //update text
+    $('#cMonth').text("Current Month : " + monthNames[currentMonth]); 
 });
 
 // Function to open the insert Exoda modal
@@ -68,31 +103,74 @@ window.openEditModal = function (ID) {
             document.getElementById("UpdateExodaModalLabel").innerText = 'Edit ' + data['Description'];
             $('#ID').val(data.ID);
             $('#updateDescription').val(data['Description']);
-            $('#updateRenewType').val(data['RenewType']);
-            $('#updateValidUntil').val(data['ValidUntil']);
             $('#updatePrice').val(data['Price']);
+            $('#updateRepeated').val(data['Repeated']);
+            $('#updateAutoRenew').val(data['AutoRenew']);
             var AutoPay = data['Autopay'];
             console.log(AutoPay);
-            if (AutoPay === '0') {
-                $('#updateAutoPay').val('True');
-            } else {
-                $('#updateAutoPay').val('False');
-            }
+            $('#updateAutoPay').val(ΑutoPay);
         }
     });
 }
 
-//Sum Modal
-window.openSumModal = function () {
-    $('#generalModal').modal('show');
-    CustomModalText();
-
-    //Sum Modal close
-    $('#closeCustom').click(function () {
-        $('#generalModal').modal('hide');
+//previous month expenses
+window.chooseMonth = function () {
+    $('#chooseMonthModal').modal('show');
+    document.getElementById('MonthSelector').addEventListener('change', function () {
+        if ($('#MonthSelector').val() != '-') {
+            var selectedMonth = $('#MonthSelector').val();
+            $('#myTable').DataTable().destroy();
+            showExpensesByMonth(selectedMonth);
+            $('#chooseMonthModal').modal('hide');
+        }
     });
 };
 
+function showExpensesByMonth(selectedMonth) {
+    selectedMonth = parseInt(selectedMonth);
+
+    $.ajax({
+        url: "Exoda/getExpensesbyMonth",
+        type: "GET",
+        data: {
+            selectedMonth: selectedMonth
+        },
+        dataType: "json",
+        success: function (data) {
+            // Populate DataTable with fetched data
+            $('#myTable').DataTable().clear().rows.add(data).draw();
+            
+            // Update footer sum after redrawing table
+            updateFooterSum(data);
+        }
+        // Footer callback to calculate sum
+    });
+
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    //update text
+    $('#cMonth').text("Current Month : " + monthNames[selectedMonth - 1]);
+}
+
+$('#showCurrentMonth').click(function () {
+    currentMonth = new Date().getMonth();
+    showExpensesByMonth(currentMonth);
+});
+
+function updateFooterSum(data) {
+    let totalSum = 0;
+
+    // Calculate total sum
+    data.forEach(function(item) {
+        console.log(item.Price);
+        totalSum += parseFloat(item.Price);
+    });
+
+    // Update footer with total sum
+    $('#monthSum').text("Total Sum : " + totalSum.toFixed(2)); // Assuming two decimal places
+}
 
 // Function to confirm deletion
 window.confirmDelete = function (ID) {
@@ -120,13 +198,3 @@ window.confirmDelete = function (ID) {
         $('#deleteConfirmationModal').modal('hide');
     });
 };
-
-function CustomModalText() {
-    $.ajax({
-        url: "Exoda/getExodaSum",
-        type: "POST",
-        success: function (message) {
-            document.getElementById("generalModalLabel").innerText = message;
-        }
-    });
-}

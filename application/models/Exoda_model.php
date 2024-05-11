@@ -14,6 +14,12 @@ class Exoda_model extends CI_Model
         return $this->db->get_where("tblexoda", $query)->row_array();
     }
 
+    public function getExodaByMonth($selectedMonth)
+    {
+        $this->db->where('ExodoMonth', $selectedMonth);
+        return $this->db->get('tblexoda')->result_array();
+    }
+
     public function postExoda($data)
     {
         $this->db->insert("tblexoda", $data);
@@ -31,19 +37,5 @@ class Exoda_model extends CI_Model
         }
         $this->db->where('ID', $id);
         $this->db->update('tblexoda');
-    }
-
-    public function getExodaSumbyMonth()
-    {
-        $this->db->select_sum('Price');
-        $this->db->where('RenewType', 'Month');
-        return $this->db->get('tblexoda')->row()->Price;
-    }
-
-    public function getExodaSumbyYear()
-    {
-        $this->db->select_sum('Price');
-        $this->db->where('RenewType', 'Year');
-        return $this->db->get('tblexoda')->row()->Price;
     }
 }

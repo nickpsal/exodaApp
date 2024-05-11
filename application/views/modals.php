@@ -10,32 +10,45 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <h1 class="modal-title fs-5" id="insertExodaModalLabel">Insert new Exodo</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="exodaForm" method="post" action="<?=base_url('exoda/postExoda')?>">
+            <form id="exodaForm" method="post" action="<?= base_url('exoda/postExoda') ?>">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="Description" class="form-label">Description</label>
                         <input type="text" class="form-control" id="Description" name="Description" required>
                     </div>
                     <div class="mb-3">
-                        <label for="RenewType" class="form-label">Renew Type</label>
-                        <select class="form-control" id="RenewType" name="RenewType" required>
-                            <option value="Month">Month</option>
-                            <option value="Year">Year</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="ValidUntil" class="form-label">Valid Until</label>
-                        <input type="text" class="form-control" id="ValidUntil" name="ValidUntil" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="Price" class="form-label">Price</label>
                         <input type="text" class="form-control" id="Price" name="Price" required>
                     </div>
                     <div class="mb-3">
-                        <label for="Autopay" class="form-label">Autopay</label>
-                        <select class="form-control" id="Autopay" name="Autopay" required>
-                            <option value="True">True</option>
-                            <option value="False">False</option>
+                        <label for="exodoMonth" class="form-label">Month</label>
+                        <select class="form-control" id="exodoMonth" name="exodoMonth" required>
+                            <option value="1">Jan</option>
+                            <option value="2">Feb</option>
+                            <option value="3">Mar</option>
+                            <option value="4">Apr</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">Aug</option>
+                            <option value="9">Sep</option>
+                            <option value="10">Oct</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Dec</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Repeated" class="form-label">Repeated</label>
+                        <select class="form-control" id="Repeated" name="Repeated" required>
+                            <option value="0">True</option>
+                            <option value="1">False</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="AutoRenew" class="form-label">AutoRenew</label>
+                        <select class="form-control" id="AutoRenew" name="AutoRenew" required>
+                            <option value="0">True</option>
+                            <option value="1">False</option>
                         </select>
                     </div>
                 </div>
@@ -56,7 +69,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <h1 class="modal-title fs-5" id="UpdateExodaModalLabel">Update</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="editExodaForm" method="post" action="<?=base_url('exoda/putExoda')?>">
+            <form id="editExodaForm" method="post" action="<?= base_url('exoda/putExoda') ?>">
                 <div class="modal-body">
                     <input type="text" class="form-control" id="ID" name="ID" hidden>
                     <div class="mb-3">
@@ -64,25 +77,38 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <input type="text" class="form-control" id="updateDescription" name="updateDescription" required>
                     </div>
                     <div class="mb-3">
-                        <label for="updateRenewType" class="form-label">Renew Type</label>
-                        <select class="form-control" id="updateRenewType" name="updateRenewType" required>
-                            <option value="Month">Month</option>
-                            <option value="Year">Year</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="updateValidUntil" class="form-label">Valid Until</label>
-                        <input type="text" class="form-control" id="updateValidUntil" name="updateValidUntil" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="updatePrice" class="form-label">Price</label>
                         <input type="text" class="form-control" id="updatePrice" name="updatePrice" required>
                     </div>
                     <div class="mb-3">
-                        <label for="updateAutoPay" class="form-label">Autopay</label>
-                        <select class="form-control" id="updateAutoPay" name="updateAutopay" required>
-                            <option value="True">True</option>
-                            <option value="False">False</option>
+                        <label for="updateExodoMonth" class="form-label">Month</label>
+                        <select class="form-control" id="updateExodoMonth" name="updateExodoMonth" required>
+                            <option value="1">Jan</option>
+                            <option value="2">Feb</option>
+                            <option value="3">Mar</option>
+                            <option value="4">Apr</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">Aug</option>
+                            <option value="9">Sep</option>
+                            <option value="10">Oct</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Dec</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateRepeated" class="form-label">Repeated</label>
+                        <select class="form-control" id="updateRepeated" name="updateRepeated" required>
+                            <option value="0">True</option>
+                            <option value="1">False</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateAutoRenew" class="form-label">AutoRenew</label>
+                        <select class="form-control" id="updateAutoRenew" name="updateAutoRenew" required>
+                            <option value="0">True</option>
+                            <option value="1">False</option>
                         </select>
                     </div>
                 </div>
@@ -116,14 +142,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <!-- General Modal -->
 <!-- Modal HTML -->
-<div class="modal fade" id="generalModal" tabindex="-1" aria-labelledby="generalModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="chooseMonthModal" tabindex="-1" aria-labelledby="chooseMonthModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="message" id="message">
-                <h5 class="modal-title" id="generalModalLabel"></h5>
+            <div class="month mt-2 mb-2" id="month">
+                <select class="w-100 mt-4" id="MonthSelector" name="MonthSelector" required>
+                    <?php
+                    $currentMonth = date('m');
+                    echo "<option value='-'>Select Month</option>";
+                    for ($i = 1; $i < $currentMonth; $i++) {
+                        echo "<option value='$i'>$i</option>";
+                    }
+                    ?>
+                </select>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCustom">OK</button>
+                <a href="<?=base_url()?>" type="button" class="btn btn-secondary" data-dismiss="modal">Current Month</a>
             </div>
         </div>
     </div>
