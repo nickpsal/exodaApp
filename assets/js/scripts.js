@@ -185,7 +185,12 @@ function updateMonthSum(data) {
     data.forEach(function(item) {
         totalSum += parseFloat(item.Price);
     });
-
+    
     // Update footer with total sum
-    $('#monthSum').text("Total Expenses of the Month is " + totalSum.toFixed(2) + " Euros"); // Assuming two decimal places
+    if (totalSum == 0) {
+        $('#monthSum').text("No Expenses found for this Month");
+    }else {
+        $('#monthSum').text("Total Expenses of the Month is " + totalSum.toFixed(2) + " Euros"); // Assuming two decimal places
+
+    }
 }

@@ -6,3 +6,9 @@
 .modal-title{
     text-align: center;
 }
+
+#monthSum{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}

@@ -61,6 +61,29 @@ class Exoda extends CI_Controller
         }
     }
 
+     //update exoda
+     public function putExoda()
+     {
+         if ($this->input->server('REQUEST_METHOD') === 'POST') {
+             //update data
+             $postData = $this->input->post();
+             $dataDB['Description'] = $postData['updateDescription'];
+             $dataDB['Price'] = $postData['updatePrice'];
+             $dataDB['ExodoMonth'] = $postData['updateExodoMonth'];
+             $dataDB['Repeated'] = $postData['updateRepeated'];
+             $dataDB['AutoRenew'] = $postData['updateAutoRenew'];
+             $this->Exoda_model->updateExoda($postData['ID'], $dataDB);
+             redirect(base_url('exoda'));
+         }else {
+             //send data to modal for update
+             $id = $this->input->get('ID');
+             $exodaData = $this->Exoda_model->getExodaById($id);
+             $this->output
+                 ->set_content_type('application/json')
+                 ->set_output(json_encode($exodaData));
+         }
+     }
+
      //delete exoda
      public function deleteExoda()
      {
@@ -68,27 +91,4 @@ class Exoda extends CI_Controller
         $this->Exoda_model->deleteExoda($id);
         return json_encode('');
      }
-
-    //update exoda
-    public function putExoda()
-    {
-        if ($this->input->server('REQUEST_METHOD') === 'POST') {
-            //update data
-            $postData = $this->input->post();
-            $dataDB['Description'] = $postData['updateDescription'];
-            $dataDB['Price'] = $postData['updatePrice'];
-            $dataDB['ExodoMonth'] = $postData['updateExodoMonth'];
-            $dataDB['Repeated'] = $postData['updateRepeated'];
-            $dataDB['AutoRenew'] = $postData['updateAutoRenew'];
-            $this->Exoda_model->updateExoda($postData['ID'], $dataDB);
-            redirect(base_url('exoda'));
-        }else {
-            //send data to modal for update
-            $id = $this->input->get('ID');
-            $exodaData = $this->Exoda_model->getExodaById($id);
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode($exodaData));
-        }
-    }
 }
