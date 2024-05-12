@@ -14,9 +14,10 @@ class Exoda_model extends CI_Model
         return $this->db->get_where("tblexoda", $query)->row_array();
     }
 
-    public function getExodaByMonth($selectedMonth)
+    public function getExodaByMonthandYear($selectedMonth, $selectedYear)
     {
         $this->db->where('ExodoMonth', $selectedMonth);
+        $this->db->where('ExodoYear', $selectedYear);
         return $this->db->get('tblexoda')->result_array();
     }
 

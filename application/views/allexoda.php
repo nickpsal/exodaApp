@@ -26,6 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         <th>Description</th>
                                         <th>Price</th>
                                         <th>Exodo Month</th>
+                                        <th>Exodo Year</th>
                                         <th>date Created</th>
                                         <th>Repeated</th>
                                         <th>AutoRenew</th>

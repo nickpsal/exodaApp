@@ -25,8 +25,9 @@ class Exoda extends CI_Controller
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
             $exodaData = $this->Exoda_model->getAllExoda();
             $currentMonth = date('m');
+            $currentYear = date('Y');
             foreach ($exodaData as $key => $row) {
-                if ($row['ExodoMonth'] != $currentMonth) {
+                if ($row['ExodoMonth'] != $currentMonth || $row['ExodoYear'] != $currentYear) {
                     unset($exodaData[$key]);
                 }
             }
@@ -36,10 +37,11 @@ class Exoda extends CI_Controller
         }
     }
 
-    public function getExpensesbyMonth() {
+    public function getExpensesbyMonthandYear() {
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
             $selectedMonth = $this->input->get('selectedMonth');
-            $exodaData = $this->Exoda_model->getExodaByMonth($selectedMonth);
+            $selectedYear = $this->input->get('selectedYear');
+            $exodaData = $this->Exoda_model->getExodaByMonthandYear($selectedMonth, $selectedYear);
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode($exodaData));

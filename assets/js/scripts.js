@@ -27,6 +27,9 @@ $(document).ready(function () {
                     }
                 },
                 {
+                    data: 'ExodoYear'
+                },
+                {
                     data: 'dateCreated'
                 },
                 {
@@ -94,6 +97,7 @@ window.openEditModal = function (ID) {
             $('#updateDescription').val(data['Description']);
             $('#updatePrice').val(data['Price']);
             $('#updateExodoMonth').val(data['ExodoMonth']);
+            $('#updateExodoYear').val(data['ExodoYear']);
             $('#updateRepeated').val(data['Repeated']);
             $('#updateAutoRenew').val(data['AutoRenew']);
             var AutoPay = data['Autopay'];
@@ -106,12 +110,21 @@ window.openEditModal = function (ID) {
 //previous month expenses
 window.chooseMonth = function () {
     $('#chooseMonthModal').modal('show');
-    document.getElementById('MonthSelector').addEventListener('change', function () {
-        if ($('#MonthSelector').val() != '-') {
+    // document.getElementById('MonthSelector').addEventListener('change', function () {
+    //     if ($('#MonthSelector').val() != '-') {
+    //         var selectedMonth = $('#MonthSelector').val();
+    //         $('#myTable').DataTable().destroy();
+    //         showExpensesByMonth(selectedMonth);
+    //         $('#chooseMonthModal').modal('hide');
+    //     }
+    $('#ChooseMonthandYear').click(function () {
+        if ($('#ChooseMonthandYear').val() != '-' && $('#YearSelector').val() != '-') {
             var selectedMonth = $('#MonthSelector').val();
-            $('#myTable').DataTable().destroy();
-            showExpensesByMonth(selectedMonth);
-            $('#chooseMonthModal').modal('hide');
+            var selectedYear = $('#YearSelector').val();
+            showExpensesByMonthandYear(selectedMonth, selectedYear)
+            $('#deleteConfirmationModal').modal('hide');
+        }else {
+            alert("Please select a month and a year");
         }
     });
 };
@@ -148,14 +161,15 @@ $('#showCurrentMonth').click(function () {
     showExpensesByMonth(currentMonth);
 });
 
-function showExpensesByMonth(selectedMonth) {
+function showExpensesByMonthandYear(selectedMonth, selectedYear) {
     selectedMonth = parseInt(selectedMonth);
 
     $.ajax({
-        url: "Exoda/getExpensesbyMonth",
+        url: "Exoda/getExpensesbyMonthandYear",
         type: "GET",
         data: {
-            selectedMonth: selectedMonth
+            selectedMonth: selectedMonth,
+            selectedYear: selectedYear
         },
         dataType: "json",
         success: function (data) {

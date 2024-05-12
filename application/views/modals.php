@@ -38,6 +38,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </select>
                     </div>
                     <div class="mb-3">
+                        <label for="exodoMonth" class="form-label">Month</label>
+                        <select class="form-control" id="exodoYear" name="exodoYear" required>
+                            <?php
+                            $startYear = 2024;
+                            $currentYear = date('Y');
+                            if ($currentYear > $startYear) {
+                                for ($j = $startYear; $j <= $currentYear; $j++) {
+                            ?>
+                                    <option value="<?= $j ?>"><?= $j ?></option>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                <option value="<?= $currentYear ?>"><?= $currentYear ?></option>
+                            <?php
+                            } ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="Repeated" class="form-label">Repeated</label>
                         <select class="form-control" id="Repeated" name="Repeated" required>
                             <option value="0">True</option>
@@ -84,12 +103,31 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <label for="updateExodoMonth" class="form-label">Month</label>
                         <select class="form-control" id="updateExodoMonth" name="updateExodoMonth" required>
                             <?php
-                                for ($i = 1; $i < 13; $i++) {
-                                    ?>
-                                        <option value="<?=$i?>"><?=date('F', mktime(0, 0, 0, $i, 1));?></option>
-                                    <?php
-                                }
+                            for ($i = 1; $i < 13; $i++) {
                             ?>
+                                <option value="<?= $i ?>"><?= date('F', mktime(0, 0, 0, $i, 1)); ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exodoMonth" class="form-label">Month</label>
+                        <select class="form-control" id="updateExodoYear" name="updateExodoYear" required>
+                            <?php
+                            $startYear = 2024;
+                            $currentYear = date('Y');
+                            if ($currentYear > $startYear) {
+                                for ($j = $startYear; $j <= $currentYear; $j++) {
+                            ?>
+                                    <option value="<?= $j ?>"><?= $j ?></option>
+                                <?php
+                                }
+                            } else {
+                                ?>
+                                <option value="<?= $currentYear ?>"><?= $currentYear ?></option>
+                            <?php
+                            } ?>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -135,26 +173,57 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
 </div>
 
-<!-- General Modal -->
+<!-- Choose Month and Year Modal -->
 <!-- Modal HTML -->
 <div class="modal fade" id="chooseMonthModal" tabindex="-1" aria-labelledby="chooseMonthModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="month mt-2 mb-2" id="month">
-                <select class="w-100 mt-4" id="MonthSelector" name="MonthSelector" required>
-                    <?php
-                    $currentMonth = date('m');
-                    echo "<option value='-'>Select Month</option>";
-                    for ($i = 1; $i < $currentMonth; $i++) {
-                        ?>
-                        <option value="<?=$i?>"><?=date('F', mktime(0, 0, 0, $i, 1));?></option>
+        <div class="modal-content mx-auto p-2">
+            <div class="row">
+                <div class="col-6 month mt-2 mb-2">
+                    <select class="w-100 mt-4" id="MonthSelector" name="MonthSelector" required>
                         <?php
-                    }
-                    ?>
-                </select>
+                        $currentMonth = date('m');
+                        echo "<option value='-'>Select Month</option>";
+                        for ($i = 1; $i < $currentMonth; $i++) {
+                        ?>
+                            <option value="<?= $i ?>"><?= date('F', mktime(0, 0, 0, $i, 1)); ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="col-6 year mt-2 mb-2">
+                    <select class="w-100 mt-4" id="YearSelector" name="YearSelector" required>
+                        <?php
+                        $startYear = 2024;
+                        $currentYear = date('Y');
+                        echo "<option value='-'>Select Year</option>";
+                        if ($currentYear > $startYear) {
+                            for ($j = $startYear; $j <= $currentYear; $j++) {
+                        ?>
+                                <option value="<?= $j ?>"><?= $j ?></option>
+                            <?php
+                            }
+                        } else {
+                            ?>
+                            <option value="<?= $currentYear ?>"><?= $currentYear ?></option>
+                        <?php
+                        } ?>
+                    </select>
+                </div>
             </div>
-            <div class="modal-footer">
-                <a href="<?=base_url()?>" type="button" class="btn btn-secondary" data-dismiss="modal">Current Month</a>
+            <div class="modal-footer d-flex justify-content-center" style="white-space: nowrap;">
+                <div class="row">
+                    <div class="col-4">
+                        <button type="button" class="btn btn-primary" id="ChooseMonthandYear">Ok</button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <div class="col-4">
+                        <a href="<?= base_url() ?>" class="btn btn-primary">Current Month</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
