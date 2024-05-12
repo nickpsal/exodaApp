@@ -12,37 +12,47 @@ $(document).ready(function () {
                 },
                 data: data,
                 columns: [{
-                    data: 'ID'
+                    data: 'ID',
+                    searchable: false
                 },
                 {
                     data: 'Description'
                 },
                 {
-                    data: 'Price'
+                    data: 'Price',
+                    searchable: false,
                 },
                 {
                     data: 'ExodoMonth',
                     render: function (data) {
                         return new Date(2000, data - 1).toLocaleString('EN', { month: 'long' });
-                    }
+                    },
+                    searchable: false,
+                    orderable: false
                 },
                 {
-                    data: 'ExodoYear'
+                    data: 'ExodoYear',
+                    searchable: false,
+                    orderable: false
                 },
                 {
-                    data: 'dateCreated'
+                    data: 'dateCreated',
+                    searchable: false,
+                    orderable: false
                 },
                 {
                     data: 'Repeated',
                     render: function (data) {
                         return data === '0' ? 'True' : 'False';
-                    }
+                    },
+                    searchable: false,
                 },
                 {
                     data: 'AutoRenew',
                     render: function (data) {
                         return data === '0' ? 'True' : 'False';
-                    }
+                    },
+                    searchable: false,
                 },
                 {
                     data: null,
