@@ -100,9 +100,6 @@ window.openEditModal = function (ID) {
             $('#updateExodoYear').val(data['ExodoYear']);
             $('#updateRepeated').val(data['Repeated']);
             $('#updateAutoRenew').val(data['AutoRenew']);
-            var AutoPay = data['Autopay'];
-            console.log(AutoPay);
-            $('#updateAutoPay').val(ΑutoPay);
         }
     });
 }
