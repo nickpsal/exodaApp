@@ -16,7 +16,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="panel-heading page-title" style="display: box; text-align: center;">
                         </div>
                         <div class="panel-body">
-                            <div style="display: box; text-align: center;"><h3 id="cMonth"></H3></div>
                             <button type="button" class="btn btn-primary" onclick="openInsertModal()">Insert New</button>
                             <button type="button" class="btn btn-primary" onclick="chooseMonthandYear()">Expenses of prev Months</button>
                             <table id="myTable" class="display" style="width:100%">

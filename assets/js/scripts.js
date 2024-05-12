@@ -13,14 +13,18 @@ $(document).ready(function () {
                 data: data,
                 columns: [{
                     data: 'ID',
-                    searchable: false
+                    searchable: false,
+                    orderable: true
                 },
                 {
-                    data: 'Description'
+                    data: 'Description',
+                    searchable: true,
+                    orderable: true
                 },
                 {
                     data: 'Price',
                     searchable: false,
+                    orderable: true
                 },
                 {
                     data: 'ExodoMonth',
@@ -74,12 +78,6 @@ $(document).ready(function () {
             $('#monthSum').text("Total Expenses of the Month is " + totalSum.toFixed(2) + " Euros"); // Assuming two decimal places
         }
     });
-    let currentMonth = new Date().getMonth();
-    var monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-    //update text
-    $('#cMonth').text("Current Month : " + monthNames[currentMonth]); 
 });
 
 // Function to open the insert Exoda modal
