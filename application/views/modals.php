@@ -175,53 +175,60 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <!-- Choose Month and Year Modal -->
 <!-- Modal HTML -->
-<div class="modal fade" id="chooseMonthModal" tabindex="-1" aria-labelledby="chooseMonthModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content mx-auto p-2">
-            <div class="row">
-                <div class="col-6 month mt-2 mb-2">
-                    <select class="w-100 mt-4" id="MonthSelector" name="MonthSelector" required>
-                        <?php
-                        $currentMonth = date('m');
-                        echo "<option value='-'>Select Month</option>";
-                        for ($i = 1; $i < $currentMonth; $i++) {
-                        ?>
-                            <option value="<?= $i ?>"><?= date('F', mktime(0, 0, 0, $i, 1)); ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="col-6 year mt-2 mb-2">
-                    <select class="w-100 mt-4" id="YearSelector" name="YearSelector" required>
-                        <?php
-                        $startYear = 2024;
-                        $currentYear = date('Y');
-                        echo "<option value='-'>Select Year</option>";
-                        if ($currentYear > $startYear) {
-                            for ($j = $startYear; $j <= $currentYear; $j++) {
-                        ?>
-                                <option value="<?= $j ?>"><?= $j ?></option>
-                            <?php
-                            }
-                        } else {
-                            ?>
-                            <option value="<?= $currentYear ?>"><?= $currentYear ?></option>
-                        <?php
-                        } ?>
-                    </select>
-                </div>
+<div class="modal fade" id="chooseMonthYearModal" tabindex="-1" aria-labelledby="chooseMonthYearModallLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chooseMonthYearModallLabel">Expenses of Prev Months</h5>
             </div>
-            <div class="modal-footer d-flex justify-content-center" style="white-space: nowrap;">
-                <div class="row">
-                    <div class="col-4">
-                        <button type="button" class="btn btn-primary" id="ChooseMonthandYear">Ok</button>
+            <div class="modal-body">
+                <div class="modal-content mx-auto p-2">
+                    <div class="row">
+                        <div class="col-6 month mt-2 mb-2">
+                            <select class="w-100 mt-4" id="MonthSelector" name="MonthSelector" required>
+                                <?php
+                                $currentMonth = date('m');
+                                echo "<option value='-'>Select Month</option>";
+                                for ($i = 1; $i < $currentMonth; $i++) {
+                                ?>
+                                    <option value="<?= $i ?>"><?= date('F', mktime(0, 0, 0, $i, 1)); ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-6 year mt-2 mb-2">
+                            <select class="w-100 mt-4" id="YearSelector" name="YearSelector" required>
+                                <?php
+                                $startYear = 2024;
+                                $currentYear = date('Y');
+                                echo "<option value='-'>Select Year</option>";
+                                if ($currentYear > $startYear) {
+                                    for ($j = $startYear; $j <= $currentYear; $j++) {
+                                ?>
+                                        <option value="<?= $j ?>"><?= $j ?></option>
+                                    <?php
+                                    }
+                                } else {
+                                    ?>
+                                    <option value="<?= $currentYear ?>"><?= $currentYear ?></option>
+                                <?php
+                                } ?>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                    <div class="col-4">
-                        <a href="<?= base_url() ?>" class="btn btn-primary">Current Month</a>
+                </div>
+                <div class="modal-footer d-flex justify-content-center" style="white-space: nowrap;">
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary" id="ChooseMonthandYearBtn">Ok</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                        <div class="col-4">
+                            <a href="<?= base_url() ?>" class="btn btn-primary">Current Month</a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -106,25 +106,20 @@ window.openEditModal = function (ID) {
 
 //previous month expenses
 window.chooseMonth = function () {
-    $('#chooseMonthModal').modal('show');
-    // document.getElementById('MonthSelector').addEventListener('change', function () {
-    //     if ($('#MonthSelector').val() != '-') {
-    //         var selectedMonth = $('#MonthSelector').val();
-    //         $('#myTable').DataTable().destroy();
-    //         showExpensesByMonth(selectedMonth);
-    //         $('#chooseMonthModal').modal('hide');
-    //     }
-    $('#ChooseMonthandYear').click(function () {
+    $('#chooseMonthYearModal').modal('show');
+    $('#ChooseMonthandYearBtn').click(function () {
         if ($('#ChooseMonthandYear').val() != '-' && $('#YearSelector').val() != '-') {
             var selectedMonth = $('#MonthSelector').val();
             var selectedYear = $('#YearSelector').val();
+            $('#chooseMonthYearModal').modal('hide');
             showExpensesByMonthandYear(selectedMonth, selectedYear)
-            $('#deleteConfirmationModal').modal('hide');
-        }else {
-            alert("Please select a month and a year");
         }
     });
 };
+
+$('#ChooseMonthandYearBtn').click(function () {
+    alert("ok");
+});
 
 // Function to confirm deletion
 window.confirmDelete = function (ID) {
@@ -159,8 +154,6 @@ $('#showCurrentMonth').click(function () {
 });
 
 function showExpensesByMonthandYear(selectedMonth, selectedYear) {
-    selectedMonth = parseInt(selectedMonth);
-
     $.ajax({
         url: "Exoda/getExpensesbyMonthandYear",
         type: "GET",
