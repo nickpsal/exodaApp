@@ -92,23 +92,25 @@ window.openEditModal = function (ID) {
         },
         success: function (data) {
             // Populate the edit modal with fetched data
-            document.getElementById("UpdateExodaModalLabel").innerText = 'Edit ' + data['Description'];
+            document.getElementById("UpdateExodaModalLabel").innerText = 'Edit ' + data.Description;
             $('#ID').val(data.ID);
-            $('#updateDescription').val(data['Description']);
-            $('#updatePrice').val(data['Price']);
-            $('#updateExodoMonth').val(data['ExodoMonth']);
-            $('#updateExodoYear').val(data['ExodoYear']);
-            $('#updateRepeated').val(data['Repeated']);
-            $('#updateAutoRenew').val(data['AutoRenew']);
+            $('#updateDescription').val(data.Description);
+            $('#updatePrice').val(data.Price);
+            $('#updateExodoMonth').val(data.ExodoMonth);
+            $('#updateExodoYear').val(data.ExodoYear);
+            $('#updateRepeated').val(data.Repeated);
+            $('#updateAutoRenew').val(data.AutoRenew);
         }
     });
 }
 
 //previous month expenses
-window.chooseMonth = function () {
+window.chooseMonthandYear = function () {
     $('#chooseMonthYearModal').modal('show');
     $('#ChooseMonthandYearBtn').click(function () {
-        if ($('#ChooseMonthandYear').val() != '-' && $('#YearSelector').val() != '-') {
+        if ($('#ChooseMonthandYear').val() == '-' || $('#YearSelector').val() == '-') {
+           alert("Please select a month and a year");
+        }else {
             var selectedMonth = $('#MonthSelector').val();
             var selectedYear = $('#YearSelector').val();
             $('#chooseMonthYearModal').modal('hide');
@@ -116,10 +118,6 @@ window.chooseMonth = function () {
         }
     });
 };
-
-$('#ChooseMonthandYearBtn').click(function () {
-    alert("ok");
-});
 
 // Function to confirm deletion
 window.confirmDelete = function (ID) {
